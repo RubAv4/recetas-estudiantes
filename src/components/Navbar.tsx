@@ -1,3 +1,4 @@
+/* navbar */
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useRecipes } from "../hooks/useRecipes";
@@ -30,6 +31,9 @@ const Navbar: React.FC = () => {
         </Link>
         <Link to="/crear" className={isActive("/crear")}>
           ➕ Crear Receta
+        </Link>
+        <Link to="/estadisticas" className={isActive("/estadisticas")}>
+          📈 Estadísticas
         </Link>
       </div>
     </nav>

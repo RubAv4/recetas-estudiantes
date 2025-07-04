@@ -1,12 +1,14 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { RecipeProvider } from './context/RecipeContext';
-import Navbar from './components/Navbar';
-import HomePage from './pages/HomePage';
-import RecipesPage from './pages/RecipesPage';
-import FavoritesPage from './pages/FavoritesPage';
-import CreateRecipePage from './pages/CreateRecipePage';
-import RecipeDetailPage from './pages/RecipeDetailPage';
-import './App.css';
+/* App.tsx */
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { RecipeProvider } from "./context/RecipeContext";
+import Navbar from "./components/Navbar";
+import HomePage from "./pages/HomePage";
+import RecipesPage from "./pages/RecipesPage";
+import FavoritesPage from "./pages/FavoritesPage";
+import CreateRecipePage from "./pages/CreateRecipePage";
+import RecipeDetailPage from "./pages/RecipeDetailPage";
+import StatsPage from "./pages/StatsPage";
+import "./App.css";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
               <Route path="/favoritas" element={<FavoritesPage />} />
               <Route path="/crear" element={<CreateRecipePage />} />
               <Route path="/receta/:id" element={<RecipeDetailPage />} />
+              <Route path="/estadisticas" element={<StatsPage />} />{" "}
+              {/* Nueva ruta */}
             </Routes>
           </main>
         </div>

@@ -1,3 +1,4 @@
+/* RecipeCard.tsx */
 import React, { useState } from "react"; // Añadimos useState
 import { Link } from "react-router-dom";
 import type { Recipe } from "../types/Recipe";
