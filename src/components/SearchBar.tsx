@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 interface SearchBarProps {
   onSearch: (term: string) => void;
@@ -7,27 +7,21 @@ interface SearchBarProps {
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleSearch = () => {
-    onSearch(searchTerm.trim());
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") handleSearch();
-  };
+  useEffect(() => {
+    if (searchTerm.trim() !== "") {
+      onSearch(searchTerm.trim());
+    }
+  }, [searchTerm, onSearch]);
 
   return (
-    <div className="input-group mb-4">
+    <div className="search-container">
       <input
         type="text"
-        className="form-control"
-        placeholder="Busca una receta"
+        placeholder="🔍 Buscar recetas..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        onKeyDown={handleKeyDown}
+        className="search-input"
       />
-      <button className="btn btn-primary" onClick={handleSearch}>
-        Buscar
-      </button>
     </div>
   );
 };

@@ -26,20 +26,20 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, onDelete }) => {
     }
   };
 
-  // Manejador para abrir modal de eliminación
+  //modal de eliminación
   const handleDeleteClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsDeleteModalOpen(true); // Abre el modal en lugar de eliminar directamente
+    setIsDeleteModalOpen(true); //modal en lugar de eliminar directamente
   };
 
-  // Manejador para confirmar eliminación
+  //confirmar eliminacion
   const handleConfirmDelete = () => {
     onDelete?.(String(recipe.id)); // Convertimos a string
     setIsDeleteModalOpen(false);
   };
 
-  // Función para obtener emoji de dificultad
+  //obtener emoji de dificultad
   const getDificultadEmoji = (dificultad: string) => {
     switch (dificultad) {
       case "fácil":
@@ -69,7 +69,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, onDelete }) => {
               }}
             />
 
-            {/* Botón de favoritos */}
+            {/* Boton de favoritos */}
             <button
               className={`favorite-btn ${
                 isFavorito(recipe.id) ? "active" : ""
@@ -84,7 +84,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, onDelete }) => {
               {isFavorito(recipe.id) ? "❤️" : "🤍"}
             </button>
 
-            {/* Botón de eliminar (solo si hay onDelete) */}
+            {/* Boton de eliminar (solo si hay onDelete) */}
             {onDelete && (
               <button
                 className="delete-btn"
@@ -142,7 +142,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, onDelete }) => {
         </div>
       </Link>
 
-      {/* Modal de confirmación para eliminar */}
+      {/* Modal de confirmacion para eliminar */}
       <Modal
         isOpen={isDeleteModalOpen}
         title="¿Eliminar receta?"
