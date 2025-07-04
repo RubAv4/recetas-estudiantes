@@ -13,6 +13,7 @@ export interface Recipe {
 
 export interface RecipeFormData {
   nombre: string;
+  imagen: string; // Nuevo campo para URL de imagen
   ingredientes: string;
   pasos: string;
   tiempo: number;
@@ -23,10 +24,19 @@ export interface RecipeFormData {
 
 export interface RecipeFormErrors {
   nombre?: string;
+  imagen?: string; // Nuevo campo para errores de imagen
   ingredientes?: string;
   pasos?: string;
   tiempo?: string;
   dificultad?: string;
   categoria?: string;
   porciones?: string;
+}
+//nueva interfaz para los filtros
+export interface RecipeFilters {
+  searchTerm: string;
+  category: string;
+  difficulty: string;
+  minRating: number;
+  maxTime: number | null;
 }

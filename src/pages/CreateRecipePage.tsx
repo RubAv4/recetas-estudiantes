@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useRecipes } from '../hooks/useRecipes';
-import type { RecipeFormData, RecipeFormErrors } from '../types/Recipe';
+import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useRecipes } from "../hooks/useRecipes";
+import type { RecipeFormData, RecipeFormErrors } from "../types/Recipe";
 
 const CreateRecipePage: React.FC = () => {
   const navigate = useNavigate();
@@ -10,20 +10,119 @@ const CreateRecipePage: React.FC = () => {
 
   // Estados para el formulario controlado
   const [formData, setFormData] = useState<RecipeFormData>({
-    nombre: '',
-    ingredientes: '',
-    pasos: '',
+    nombre: "",
+    imagen: "",
+    ingredientes: "",
+    pasos: "",
     tiempo: 10,
-    dificultad: 'fácil',
-    categoria: '',
-    porciones: 1
+    dificultad: "fácil",
+    categoria: "",
+    porciones: 1,
   });
 
   const [errors, setErrors] = useState<RecipeFormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [ingredientsList, setIngredientsList] = useState<string[]>([]);
+  const [draggedItem, setDraggedItem] = useState<number | null>(null);
+
+  // Convertir texto de ingredientes a lista al cargar
+  useEffect(() => {
+    if (formData.ingredientes) {
+      setIngredientsList(
+        formData.ingredientes
+          .split("\n")
+          .map((ing) => ing.trim())
+          .filter((ing) => ing.length > 0)
+      );
+    }
+  }, [formData.ingredientes]);
+
+  // Manejadores para Drag & Drop
+  const handleDragStart = (e: React.DragEvent, index: number) => {
+    e.dataTransfer.setData("text/plain", index.toString());
+    setDraggedItem(index);
+    setTimeout(() => {
+      e.currentTarget.classList.add("dragging");
+    }, 0);
+  };
+
+  const handleDragOver = (e: React.DragEvent, overIndex: number) => {
+    e.preventDefault();
+    if (draggedItem === null || draggedItem === overIndex) return;
+
+    setIngredientsList((prev) => {
+      const updated = [...prev];
+      const [moved] = updated.splice(draggedItem, 1);
+      updated.splice(overIndex, 0, moved);
+      return updated;
+    });
+
+    setDraggedItem(overIndex);
+  };
+
+  const handleDragEnd = (e: React.DragEvent) => {
+    e.currentTarget.classList.remove("dragging");
+    setDraggedItem(null);
+    updateIngredientsText();
+  };
+
+  // Actualizar el textarea con los ingredientes
+  const updateIngredientsText = () => {
+    setFormData((prev) => ({
+      ...prev,
+      ingredientes: ingredientsList.join("\n"),
+    }));
+  };
+
+  // Añadir nuevo ingrediente
+  const handleAddIngredient = () => {
+    setIngredientsList((prev) => {
+      const updated = [...prev, ""];
+      setFormData((form) => ({
+        ...form,
+        ingredientes: updated.join("\n"),
+      }));
+      return updated;
+    });
+  };
+
+  // Actualizar ingrediente
+  const handleIngredientChange = (index: number, value: string) => {
+    setIngredientsList((prev) => {
+      const updated = [...prev];
+      updated[index] = value;
+
+      // Sincroniza el campo de texto original
+      setFormData((form) => ({
+        ...form,
+        ingredientes: updated.join("\n"),
+      }));
+
+      return updated;
+    });
+  };
+
+  // Eliminar ingrediente
+  const handleRemoveIngredient = (index: number) => {
+    const newIngredients = [...ingredientsList];
+    newIngredients.splice(index, 1);
+    setIngredientsList(newIngredients);
+    updateIngredientsText();
+  };
+
+  // Función para validar URL de imagen
+  const validateImageUrl = (url: string): boolean => {
+    if (!url) return true;
+    try {
+      new URL(url);
+      return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/i.test(url);
+    } catch {
+      return false;
+    }
+  };
 
   // useEffect para enfocar el primer input al cargar la página
-  React.useEffect(() => {
+  useEffect(() => {
     if (nombreInputRef.current) {
       nombreInputRef.current.focus();
     }
@@ -31,19 +130,20 @@ const CreateRecipePage: React.FC = () => {
 
   // Función para manejar cambios en los inputs
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: name === 'tiempo' || name === 'porciones' ? Number(value) : value
+      [name]: name === "tiempo" || name === "porciones" ? Number(value) : value,
     }));
 
-    // Limpiar error del campo cuando el usuario empiece a escribir
     if (errors[name as keyof RecipeFormErrors]) {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
-        [name]: undefined
+        [name]: undefined,
       }));
     }
   };
@@ -51,29 +151,36 @@ const CreateRecipePage: React.FC = () => {
   // Función de validación
   const validateForm = (): boolean => {
     const newErrors: RecipeFormErrors = {};
+    const validIngredients = ingredientsList.filter(
+      (ing) => ing.trim().length > 0
+    );
 
     if (!formData.nombre.trim()) {
-      newErrors.nombre = 'El nombre es obligatorio';
+      newErrors.nombre = "El nombre es obligatorio";
     }
 
-    if (!formData.ingredientes.trim()) {
-      newErrors.ingredientes = 'Los ingredientes son obligatorios';
+    if (formData.imagen && !validateImageUrl(formData.imagen)) {
+      newErrors.imagen = "Ingresa una URL válida (jpg, png, gif, etc.)";
+    }
+
+    if (validIngredients.length === 0) {
+      newErrors.ingredientes = "Debe haber al menos un ingrediente";
     }
 
     if (!formData.pasos.trim()) {
-      newErrors.pasos = 'Los pasos son obligatorios';
+      newErrors.pasos = "Los pasos son obligatorios";
     }
 
     if (!formData.categoria.trim()) {
-      newErrors.categoria = 'La categoría es obligatoria';
+      newErrors.categoria = "La categoría es obligatoria";
     }
 
     if (formData.tiempo < 1) {
-      newErrors.tiempo = 'El tiempo debe ser mayor a 0';
+      newErrors.tiempo = "El tiempo debe ser mayor a 0";
     }
 
     if (formData.porciones < 1) {
-      newErrors.porciones = 'Las porciones deben ser mayor a 0';
+      newErrors.porciones = "Las porciones deben ser mayor a 0";
     }
 
     setErrors(newErrors);
@@ -83,7 +190,7 @@ const CreateRecipePage: React.FC = () => {
   // Función para manejar el envío del formulario
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -91,36 +198,29 @@ const CreateRecipePage: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      // Simular delay de red
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // Procesar los datos del formulario
       const nuevaReceta = {
         nombre: formData.nombre.trim(),
-        imagen: '/placeholder-recipe.svg', // Imagen por defecto
-        ingredientes: formData.ingredientes
-          .split('\n')
-          .map(ing => ing.trim())
-          .filter(ing => ing.length > 0),
+        imagen: formData.imagen || "/placeholder-recipe.svg",
+        ingredientes: ingredientsList.filter((ing) => ing.trim().length > 0),
         pasos: formData.pasos
-          .split('\n')
-          .map(paso => paso.trim())
-          .filter(paso => paso.length > 0),
+          .split("\n")
+          .map((paso) => paso.trim())
+          .filter((paso) => paso.length > 0),
         tiempo: formData.tiempo,
-        dificultad: formData.dificultad as 'fácil' | 'medio' | 'difícil',
+        dificultad: formData.dificultad as "fácil" | "medio" | "difícil",
         categoria: formData.categoria.trim().toLowerCase(),
         porciones: formData.porciones,
-        valoracion: 4.0 // Valoración por defecto
+        valoracion: 4.0,
       };
 
       addReceta(nuevaReceta);
-      
-      // Mostrar mensaje de éxito y redirigir
-      alert('¡Receta creada exitosamente! 🎉');
-      navigate('/recetas');
-      
+      alert("¡Receta creada exitosamente! 🎉");
+      navigate("/recetas");
+      navigate("/recetas", { replace: true });
     } catch {
-      alert('Error al crear la receta. Inténtalo de nuevo.');
+      alert("Error al crear la receta. Inténtalo de nuevo.");
     } finally {
       setIsSubmitting(false);
     }
@@ -138,7 +238,27 @@ const CreateRecipePage: React.FC = () => {
       <form onSubmit={handleSubmit} className="recipe-form">
         <div className="form-section">
           <h3 className="form-section-title">📝 Información Básica</h3>
-          
+          <div className="form-group">
+            <label htmlFor="imagen" className="form-label">
+              URL de la imagen
+              <span className="form-hint">
+                (Opcional - jpg, png, gif, etc.)
+              </span>
+            </label>
+            <input
+              type="url"
+              id="imagen"
+              name="imagen"
+              value={formData.imagen}
+              onChange={handleInputChange}
+              className={`form-input ${errors.imagen ? "error" : ""}`}
+              placeholder="https://ejemplo.com/imagen.jpg"
+            />
+            {errors.imagen && (
+              <span className="error-message">{errors.imagen}</span>
+            )}
+          </div>
+
           <div className="form-group">
             <label htmlFor="nombre" className="form-label">
               Nombre de la receta *
@@ -150,16 +270,19 @@ const CreateRecipePage: React.FC = () => {
               name="nombre"
               value={formData.nombre}
               onChange={handleInputChange}
-              className={`form-input ${errors.nombre ? 'error' : ''}`}
+              className={`form-input ${errors.nombre ? "error" : ""}`}
               placeholder="ej. Pasta con salsa de tomate"
             />
-            {errors.nombre && <span className="error-message">{errors.nombre}</span>}
+            {errors.nombre && (
+              <span className="error-message">{errors.nombre}</span>
+            )}
           </div>
 
           <div className="form-row">
             <div className="form-group">
               <label htmlFor="tiempo" className="form-label">
-                Tiempo (minutos) *
+                Tiempo total (minutos) *
+                <span className="form-hint">Incluye preparación y cocción</span>
               </label>
               <input
                 type="number"
@@ -169,9 +292,12 @@ const CreateRecipePage: React.FC = () => {
                 max="300"
                 value={formData.tiempo}
                 onChange={handleInputChange}
-                className={`form-input ${errors.tiempo ? 'error' : ''}`}
+                className={`form-input ${errors.tiempo ? "error" : ""}`}
+                placeholder="Tiempo total en minutos"
               />
-              {errors.tiempo && <span className="error-message">{errors.tiempo}</span>}
+              {errors.tiempo && (
+                <span className="error-message">{errors.tiempo}</span>
+              )}
             </div>
 
             <div className="form-group">
@@ -186,9 +312,11 @@ const CreateRecipePage: React.FC = () => {
                 max="20"
                 value={formData.porciones}
                 onChange={handleInputChange}
-                className={`form-input ${errors.porciones ? 'error' : ''}`}
+                className={`form-input ${errors.porciones ? "error" : ""}`}
               />
-              {errors.porciones && <span className="error-message">{errors.porciones}</span>}
+              {errors.porciones && (
+                <span className="error-message">{errors.porciones}</span>
+              )}
             </div>
           </div>
 
@@ -220,10 +348,12 @@ const CreateRecipePage: React.FC = () => {
                 name="categoria"
                 value={formData.categoria}
                 onChange={handleInputChange}
-                className={`form-input ${errors.categoria ? 'error' : ''}`}
+                className={`form-input ${errors.categoria ? "error" : ""}`}
                 placeholder="ej. italiana, mexicana, saludable"
               />
-              {errors.categoria && <span className="error-message">{errors.categoria}</span>}
+              {errors.categoria && (
+                <span className="error-message">{errors.categoria}</span>
+              )}
             </div>
           </div>
         </div>
@@ -231,19 +361,59 @@ const CreateRecipePage: React.FC = () => {
         <div className="form-section">
           <h3 className="form-section-title">🛒 Ingredientes</h3>
           <div className="form-group">
-            <label htmlFor="ingredientes" className="form-label">
-              Lista de ingredientes (uno por línea) *
+            <label className="form-label">
+              Lista de ingredientes *
+              <span className="form-hint">(Arrastra para reordenar)</span>
             </label>
-            <textarea
-              id="ingredientes"
-              name="ingredientes"
-              value={formData.ingredientes}
-              onChange={handleInputChange}
-              className={`form-textarea ${errors.ingredientes ? 'error' : ''}`}
-              rows={6}
-              placeholder="ej.&#10;200g pasta&#10;1 lata tomate triturado&#10;2 dientes de ajo&#10;Aceite de oliva"
-            />
-            {errors.ingredientes && <span className="error-message">{errors.ingredientes}</span>}
+
+            <div className="ingredients-list">
+              {ingredientsList.map((ingredient, index) => (
+                <div
+                  key={`${ingredient}-${index}`} // Mejor que usar solo index
+                  className={`ingredient-item ${
+                    draggedItem === index ? "dragging" : ""
+                  }`}
+                  draggable
+                  onDragStart={(e) => handleDragStart(e, index)}
+                  onDragOver={(e) => handleDragOver(e, index)}
+                  onDragEnd={(e) => handleDragEnd(e)}
+                  onDrop={(e) => e.preventDefault()}
+                >
+                  <span className="drag-handle" title="Arrastra para reordenar">
+                    ☰
+                  </span>
+                  <input
+                    type="text"
+                    value={ingredient}
+                    onChange={(e) =>
+                      handleIngredientChange(index, e.target.value)
+                    }
+                    className="ingredient-input"
+                    placeholder={`Ingrediente ${index + 1}`}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveIngredient(index)}
+                    className="remove-ingredient"
+                    aria-label={`Eliminar ingrediente ${index + 1}`}
+                  >
+                    ×
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={handleAddIngredient}
+              className="add-ingredient-btn"
+            >
+              + Añadir Ingrediente
+            </button>
+
+            {errors.ingredientes && (
+              <span className="error-message">{errors.ingredientes}</span>
+            )}
           </div>
         </div>
 
@@ -258,18 +428,20 @@ const CreateRecipePage: React.FC = () => {
               name="pasos"
               value={formData.pasos}
               onChange={handleInputChange}
-              className={`form-textarea ${errors.pasos ? 'error' : ''}`}
+              className={`form-textarea ${errors.pasos ? "error" : ""}`}
               rows={8}
               placeholder="ej.&#10;Hervir agua con sal&#10;Cocinar la pasta según instrucciones&#10;En una sartén, calentar aceite&#10;Sofreír el ajo picado"
             />
-            {errors.pasos && <span className="error-message">{errors.pasos}</span>}
+            {errors.pasos && (
+              <span className="error-message">{errors.pasos}</span>
+            )}
           </div>
         </div>
 
         <div className="form-actions">
           <button
             type="button"
-            onClick={() => navigate('/recetas')}
+            onClick={() => navigate("/recetas")}
             className="form-button secondary"
             disabled={isSubmitting}
           >
@@ -280,7 +452,7 @@ const CreateRecipePage: React.FC = () => {
             className="form-button primary"
             disabled={isSubmitting}
           >
-            {isSubmitting ? '⏳ Creando...' : '✅ Crear Receta'}
+            {isSubmitting ? "⏳ Creando..." : "✅ Crear Receta"}
           </button>
         </div>
       </form>

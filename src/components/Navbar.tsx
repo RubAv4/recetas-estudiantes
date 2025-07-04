@@ -1,13 +1,13 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { useRecipes } from '../hooks/useRecipes';
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useRecipes } from "../hooks/useRecipes";
 
 const Navbar: React.FC = () => {
   const location = useLocation();
   const { favoritos } = useRecipes();
 
   const isActive = (path: string) => {
-    return location.pathname === path ? 'nav-link active' : 'nav-link';
+    return location.pathname === path ? "nav-link active" : "nav-link";
   };
 
   return (
@@ -17,18 +17,18 @@ const Navbar: React.FC = () => {
           🍳 Recetas Estudiantes
         </Link>
       </div>
-      
+
       <div className="navbar-links">
-        <Link to="/" className={isActive('/')}>
+        <Link to="/" className={isActive("/")}>
           🏠 Inicio
         </Link>
-        <Link to="/recetas" className={isActive('/recetas')}>
+        <Link to="/recetas" className={isActive("/recetas")}>
           📖 Todas las Recetas
         </Link>
-        <Link to="/favoritas" className={isActive('/favoritas')}>
+        <Link to="/favoritas" className={isActive("/favoritas")}>
           ❤️ Favoritas ({favoritos.length})
         </Link>
-        <Link to="/crear" className={isActive('/crear')}>
+        <Link to="/crear" className={isActive("/crear")}>
           ➕ Crear Receta
         </Link>
       </div>

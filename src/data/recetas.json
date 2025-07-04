@@ -3,8 +3,15 @@
     {
       "id": 1,
       "nombre": "Pasta Universitaria Rápida",
-      "imagen": "/placeholder-recipe.svg",
-      "ingredientes": ["400g pasta", "1 lata tomate triturado", "2 dientes ajo", "100g queso parmesano", "Aceite de oliva", "Sal y pimienta"],
+      "imagen": "https://blog.ucsp.edu.pe/hs-fs/hubfs/Imported_Blog_Media/Buyer-2-05-1.jpg?width=1000&name=Buyer-2-05-1.jpg",
+      "ingredientes": [
+        "400g pasta",
+        "1 lata tomate triturado",
+        "2 dientes ajo",
+        "100g queso parmesano",
+        "Aceite de oliva",
+        "Sal y pimienta"
+      ],
       "pasos": [
         "Hervir agua con sal y cocinar la pasta según instrucciones",
         "En una sartén, calentar aceite y sofreír el ajo picado",
@@ -21,8 +28,16 @@
     {
       "id": 2,
       "nombre": "Quesadillas de Pollo",
-      "imagen": "/placeholder-recipe.svg",
-      "ingredientes": ["2 tortillas de harina", "150g pollo cocido", "100g queso oaxaca", "1/2 cebolla", "1 pimiento", "Aceite", "Sal"],
+      "imagen": "https://www.annarecetasfaciles.com/files/quesadilla-pollo-1-scaled.jpg",
+      "ingredientes": [
+        "2 tortillas de harina",
+        "150g pollo cocido",
+        "100g queso oaxaca",
+        "1/2 cebolla",
+        "1 pimiento",
+        "Aceite",
+        "Sal"
+      ],
       "pasos": [
         "Picar el pollo, cebolla y pimiento en cubos pequeños",
         "Sofreír las verduras hasta que estén tiernas",
@@ -39,8 +54,16 @@
     {
       "id": 3,
       "nombre": "Arroz Frito Estudiantil",
-      "imagen": "/placeholder-recipe.svg",
-      "ingredientes": ["2 tazas arroz cocido", "2 huevos", "100g jamón", "1 zanahoria", "Cebollín", "Salsa de soja", "Aceite"],
+      "imagen": "https://www.uexternado.edu.co/wp-content/uploads/2020/11/arroz-atollado.jpg",
+      "ingredientes": [
+        "2 tazas arroz cocido",
+        "2 huevos",
+        "100g jamón",
+        "1 zanahoria",
+        "Cebollín",
+        "Salsa de soja",
+        "Aceite"
+      ],
       "pasos": [
         "Batir los huevos y hacer una tortilla, cortar en tiras",
         "Picar el jamón y la zanahoria en cubos pequeños",
@@ -57,8 +80,16 @@
     {
       "id": 4,
       "nombre": "Sandwich Club Estudiantil",
-      "imagen": "/placeholder-recipe.svg",
-      "ingredientes": ["3 rebanadas pan integral", "150g pechuga pollo", "4 rebanadas tocino", "Lechuga", "Tomate", "Mayonesa", "Aguacate"],
+      "imagen": "https://larepublica.cronosmedia.glr.pe/migration/images/FQTUUD63AJCHLBN37UBRHPL554.jpg",
+      "ingredientes": [
+        "3 rebanadas pan integral",
+        "150g pechuga pollo",
+        "4 rebanadas tocino",
+        "Lechuga",
+        "Tomate",
+        "Mayonesa",
+        "Aguacate"
+      ],
       "pasos": [
         "Tostar las rebanadas de pan",
         "Cocinar el pollo en sartén hasta dorar",
@@ -75,8 +106,16 @@
     {
       "id": 5,
       "nombre": "Smoothie Bowl Energético",
-      "imagen": "/placeholder-recipe.svg",
-      "ingredientes": ["1 plátano congelado", "1/2 taza fresas", "1/2 taza yogurt griego", "1 cda miel", "Granola", "Coco rallado", "Chía"],
+      "imagen": "https://cdn.shopify.com/s/files/1/1437/8626/files/blog_fitgirlsmoothie.jpg?15857772055645738320",
+      "ingredientes": [
+        "1 plátano congelado",
+        "1/2 taza fresas",
+        "1/2 taza yogurt griego",
+        "1 cda miel",
+        "Granola",
+        "Coco rallado",
+        "Chía"
+      ],
       "pasos": [
         "Licuar el plátano, fresas, yogurt y miel hasta obtener consistencia cremosa",
         "Servir en un bowl",
@@ -93,8 +132,15 @@
     {
       "id": 6,
       "nombre": "Pizza Casera Express",
-      "imagen": "/placeholder-recipe.svg",
-      "ingredientes": ["1 base pizza", "1/2 taza salsa tomate", "200g queso mozzarella", "Pepperoni", "Champiñones", "Orégano"],
+      "imagen": "https://www.pequerecetas.com/wp-content/uploads/2012/12/recetas-de-pizzas-caseras.jpg",
+      "ingredientes": [
+        "1 base pizza",
+        "1/2 taza salsa tomate",
+        "200g queso mozzarella",
+        "Pepperoni",
+        "Champiñones",
+        "Orégano"
+      ],
       "pasos": [
         "Precalentar horno a 220°C",
         "Extender la salsa de tomate sobre la base",
@@ -111,8 +157,17 @@
     {
       "id": 7,
       "nombre": "Tacos de Pescado",
-      "imagen": "/placeholder-recipe.svg",
-      "ingredientes": ["4 tortillas maíz", "300g filete pescado", "Repollo morado", "Aguacate", "Limón", "Crema", "Cilantro", "Sal"],
+      "imagen": "https://images.ctfassets.net/0e6jqcgsrcye/1QKe8PCJw9FqCCPqPGzEBO/d0b89bf0271e1730c2c3490a9950bd87/fishtacos_wallpaper.jpg",
+      "ingredientes": [
+        "4 tortillas maíz",
+        "300g filete pescado",
+        "Repollo morado",
+        "Aguacate",
+        "Limón",
+        "Crema",
+        "Cilantro",
+        "Sal"
+      ],
       "pasos": [
         "Sazonar el pescado con sal, pimienta y limón",
         "Cocinar el pescado en sartén hasta dorar",
@@ -129,8 +184,17 @@
     {
       "id": 8,
       "nombre": "Ensalada César Completa",
-      "imagen": "/placeholder-recipe.svg",
-      "ingredientes": ["1 lechuga romana", "150g pechuga pollo", "Pan tostado", "Queso parmesano", "Huevo", "Mostaza", "Limón", "Aceite oliva"],
+      "imagen": "https://sarasellos.com/wp-content/uploads/2024/07/ensalada-cesar1.jpg",
+      "ingredientes": [
+        "1 lechuga romana",
+        "150g pechuga pollo",
+        "Pan tostado",
+        "Queso parmesano",
+        "Huevo",
+        "Mostaza",
+        "Limón",
+        "Aceite oliva"
+      ],
       "pasos": [
         "Lavar y cortar la lechuga en trozos",
         "Cocinar el pollo y cortarlo en tiras",
@@ -143,6 +207,117 @@
       "categoria": "saludable",
       "valoracion": 4.2,
       "porciones": 2
+    },
+    {
+      "id": 9,
+      "nombre": "Spaghetti a la Boloñesa",
+      "imagen": "https://www.unileverfoodsolutions.com.co/dam/global-ufs/mcos/NOLA/calcmenu/recipes/col-recipies/fruco-tomate-cocineros/BOLO%C3%91ESA%201200x709.png",
+      "ingredientes": [
+        "200g de spaghetti",
+        "150g de carne molida de res",
+        "1 tomate grande",
+        "1/2 cebolla",
+        "2 dientes de ajo",
+        "Aceite de oliva",
+        "Sal y pimienta",
+        "Orégano"
+      ],
+      "pasos": [
+        "Hervir el spaghetti en agua con sal hasta que esté al dente",
+        "Picar el ajo, cebolla y tomate",
+        "Sofreír el ajo y la cebolla en aceite de oliva",
+        "Agregar la carne molida y cocinar hasta dorar",
+        "Añadir el tomate y orégano, cocinar hasta obtener una salsa espesa",
+        "Mezclar con el spaghetti cocido y servir caliente"
+      ],
+      "tiempo": 30,
+      "dificultad": "fácil",
+      "categoria": "italiana",
+      "valoracion": 4.6,
+      "porciones": 2
+    },
+    {
+      "id": 10,
+      "nombre": "Hummus con Pan de Pita",
+      "imagen": "https://www.bora.com/fileadmin/_processed_/1/b/csm_Hummus_mit_schnellem_Pitabrot_1ae9e986ab.jpg",
+      "ingredientes": [
+        "1 taza de garbanzos cocidos",
+        "2 cucharadas de tahini",
+        "1 diente de ajo",
+        "Jugo de 1 limón",
+        "2 cucharadas de aceite de oliva",
+        "Sal al gusto",
+        "Comino (opcional)",
+        "Pan de pita"
+      ],
+      "pasos": [
+        "Colocar los garbanzos, tahini, ajo, jugo de limón y sal en una licuadora",
+        "Procesar hasta obtener una pasta suave",
+        "Agregar agua poco a poco si es necesario para ajustar la textura",
+        "Servir con aceite de oliva por encima y espolvorear comino si se desea",
+        "Acompañar con pan de pita tibio"
+      ],
+      "tiempo": 15,
+      "dificultad": "fácil",
+      "categoria": "árabe",
+      "valoracion": 4.5,
+      "porciones": 3
+    },
+    {
+      "id": 11,
+      "nombre": "Lomo Saltado",
+      "imagen": "https://comedera.com/wp-content/uploads/sites/9/2013/05/lomo-saltado-peruano-plato.jpg",
+      "ingredientes": [
+        "250g de carne de res en tiras",
+        "1 cebolla roja",
+        "2 tomates",
+        "1 ají amarillo",
+        "Papas fritas",
+        "Arroz blanco",
+        "Sillao (salsa de soya)",
+        "Vinagre",
+        "Aceite",
+        "Sal y pimienta"
+      ],
+      "pasos": [
+        "Cortar la carne, la cebolla, el tomate y el ají en tiras",
+        "Saltear la carne a fuego alto con aceite",
+        "Agregar cebolla, ají y tomate, y seguir salteando",
+        "Incorporar sillao, vinagre, sal y pimienta al gusto",
+        "Servir caliente acompañado de papas fritas y arroz blanco"
+      ],
+      "tiempo": 30,
+      "dificultad": "medio",
+      "categoria": "peruana",
+      "valoracion": 4.8,
+      "porciones": 2
+    },
+    {
+      "id": 12,
+      "nombre": "Brownies de Chocolate",
+      "imagen": "https://media.mykaramelli.com/galeria/recetas/brownie-de-capuchino-y-nueces-de-pecan_52_1.jpg",
+      "ingredientes": [
+        "200g chocolate negro",
+        "120g mantequilla",
+        "2 huevos",
+        "150g azúcar",
+        "80g harina",
+        "50g nueces"
+      ],
+      "pasos": [
+        "Precalentar horno a 180°C",
+        "Derretir chocolate y mantequilla al baño maría",
+        "Batir huevos con azúcar hasta espumar",
+        "Incorporar chocolate derretido",
+        "Añadir harina y mezclar suavemente",
+        "Agregar nueces picadas",
+        "Hornear por 20-25 minutos"
+      ],
+      "tiempo": 40,
+      "dificultad": "fácil",
+      "categoria": "postres",
+      "valoracion": 4.9,
+      "porciones": 8
     }
   ]
 }

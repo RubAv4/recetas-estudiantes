@@ -1,12 +1,13 @@
-import React from 'react';
-import { useParams, Link, Navigate } from 'react-router-dom';
-import { useRecipes } from '../hooks/useRecipes';
+import React from "react";
+import { useParams, Link, Navigate } from "react-router-dom";
+import { useRecipes } from "../hooks/useRecipes";
 
 const RecipeDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { recetas, addToFavoritos, removeFromFavoritos, isFavorito } = useRecipes();
+  const { recetas, addToFavoritos, removeFromFavoritos, isFavorito } =
+    useRecipes();
 
-  const receta = recetas.find(r => r.id === Number(id));
+  const receta = recetas.find((r) => r.id === Number(id));
 
   if (!receta) {
     return <Navigate to="/recetas" replace />;
@@ -19,13 +20,40 @@ const RecipeDetailPage: React.FC = () => {
       addToFavoritos(receta.id);
     }
   };
+  const handleShareClick = async () => {
+    const shareData = {
+      title: receta.nombre,
+      text: `¡Mira esta receta deliciosa: ${receta.nombre}!`,
+      url: window.location.href,
+    };
 
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        console.error("Error al compartir", err);
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        alert(
+          "URL copiada al portapapeles porque tu navegador no soporta compartir directamente."
+        );
+      } catch {
+        alert("Tu navegador no permite compartir ni copiar el enlace.");
+      }
+    }
+  };
   const getDificultadEmoji = (dificultad: string) => {
     switch (dificultad) {
-      case 'fácil': return '🟢';
-      case 'medio': return '🟡';
-      case 'difícil': return '🔴';
-      default: return '⚪';
+      case "fácil":
+        return "🟢";
+      case "medio":
+        return "🟡";
+      case "difícil":
+        return "🔴";
+      default:
+        return "⚪";
     }
   };
 
@@ -37,30 +65,33 @@ const RecipeDetailPage: React.FC = () => {
             ← Volver a Recetas
           </Link>
         </div>
-        
+
         <div className="recipe-hero">
           <div className="recipe-image-large">
-            <img 
-              src={receta.imagen} 
+            <img
+              src={receta.imagen}
               alt={receta.nombre}
               onError={(e) => {
-                e.currentTarget.src = '/placeholder-large.svg';
+                e.currentTarget.src = "/placeholder-large.svg";
               }}
             />
-            <button 
-              className={`favorite-btn-large ${isFavorito(receta.id) ? 'active' : ''}`}
+            <button
+              className={`favorite-btn-large ${
+                isFavorito(receta.id) ? "active" : ""
+              }`}
               onClick={handleFavoritoClick}
+              aria-label="Marcar como favorito"
             >
-              {isFavorito(receta.id) ? '❤️' : '🤍'}
+              {isFavorito(receta.id) ? "❤️" : "🤍"}
             </button>
           </div>
-          
+
           <div className="recipe-info">
             <h1 className="recipe-title-large">{receta.nombre}</h1>
-            
+
             <div className="recipe-meta-large">
               <div className="meta-item">
-                <span className="meta-label">⏱️ Tiempo:</span>
+                <span className="meta-label">⏱️ Tiempo total:</span>
                 <span className="meta-value">{receta.tiempo} minutos</span>
               </div>
               <div className="meta-item">
@@ -75,15 +106,26 @@ const RecipeDetailPage: React.FC = () => {
               </div>
               <div className="meta-item">
                 <span className="meta-label">Categoría:</span>
-                <span className="meta-value category-tag">{receta.categoria}</span>
+                <span className="meta-value category-tag">
+                  {receta.categoria}
+                </span>
               </div>
             </div>
-            
+
             <div className="recipe-rating-large">
               <span className="rating-stars">
-                {'⭐'.repeat(Math.floor(receta.valoracion))}
+                {"⭐".repeat(Math.floor(receta.valoracion))}
               </span>
               <span className="rating-number">{receta.valoracion}/5</span>
+            </div>
+
+            <div className="recipe-actions-inline">
+              <button
+                onClick={handleShareClick}
+                className="action-button secondary"
+              >
+                🔗 Compartir Receta
+              </button>
             </div>
           </div>
         </div>
@@ -116,11 +158,13 @@ const RecipeDetailPage: React.FC = () => {
       </div>
 
       <div className="recipe-actions">
-        <button 
+        <button
           onClick={handleFavoritoClick}
-          className={`action-button ${isFavorito(receta.id) ? 'favorited' : ''}`}
+          className={`action-button ${
+            isFavorito(receta.id) ? "favorited" : ""
+          }`}
         >
-          {isFavorito(receta.id) ? '❤️ En Favoritos' : '🤍 Agregar a Favoritos'}
+          {isFavorito(receta.id) ? "❤️ En Favoritos" : "🤍 Agregar a Favoritos"}
         </button>
         <Link to="/recetas" className="action-button secondary">
           Ver Más Recetas
