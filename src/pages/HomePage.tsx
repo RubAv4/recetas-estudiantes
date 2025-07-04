@@ -33,10 +33,10 @@ const HomePage: React.FC = () => {
             universitarios
           </p>
           <div className="hero-buttons d-flex justify-content-center gap-3 mt-3">
-            <Link to="/recetas" className="btn btn-primary">
+            <Link to="/recetas" className="btn custom-outline-white">
               Explorar Recetas
             </Link>
-            <Link to="/crear" className="btn btn-outline-secondary">
+            <Link to="/crear" className="btn custom-outline-white">
               Crear Mi Receta
             </Link>
           </div>

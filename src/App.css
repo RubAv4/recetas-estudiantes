@@ -613,6 +613,15 @@ body {
   object-fit: cover;
 }
 
+.custom-outline-white {
+  color: white;
+  border-color: white;
+}
+.custom-outline-white:hover {
+  background-color: white;
+  color: black;
+}
+
 .favorite-btn-large {
   position: absolute;
   top: 1rem;
@@ -963,11 +972,6 @@ body {
 
   .form-actions {
     flex-direction: column;
-  }
-
-  .hero-buttons {
-    flex-direction: column;
-    align-items: center;
   }
 
   .recipe-meta-large {
