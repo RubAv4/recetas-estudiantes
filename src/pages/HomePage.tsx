@@ -8,7 +8,7 @@ const HomePage: React.FC = () => {
   const { recetas } = useRecipes();
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Filtrar recetas por nombre si hay término de búsqueda
+  //filtro recetas por nombre si hay término de búsqueda
   const recetasFiltradas = searchTerm
     ? recetas.filter((r) =>
         r.nombre.toLowerCase().includes(searchTerm.toLowerCase())
